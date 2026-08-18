@@ -1,0 +1,5 @@
+[
+  { "id": "1", "name": "Veste Sépia", "price": 189, "category": "Vestes", "image": "assets/images/veste-sepia.jpg", "description": "Une veste structurée pensée pour les silhouettes quotidiennes." },
+  { "id": "2", "name": "Robe Noyer", "price": 145, "category": "Robes", "image": "assets/images/robe-noyer.jpg", "description": "Une robe fluide aux lignes épurées." },
+  { "id": "3", "name": "Sac Terre", "price": 120, "category": "Accessoires", "image": "assets/images/sac-terre.jpg", "description": "Un sac compact aux finitions soignées." }
+]
