@@ -15,6 +15,10 @@ body {
   color: var(--text);
 }
 
+#header-slot {
+  z-index: 30;
+}
+
 .site-header.is-scrolled {
   background: var(--header-bg);
   color: var(--text);

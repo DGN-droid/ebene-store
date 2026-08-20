@@ -1,6 +1,6 @@
-import { ChevronLeft, ChevronRight, Globe2, Menu, Minus, Monitor, Moon, Plus, Search, ShoppingBag, Sun, X, createIcons } from 'lucide';
+import { ChevronLeft, ChevronRight, Clock, Globe2, Mail, MapPin, Menu, Minus, Monitor, Moon, Phone, Plus, Rotate3d, Search, ShoppingBag, Sun, X, createIcons } from 'lucide';
 
-const icons = { ChevronLeft, ChevronRight, Globe2, Menu, Minus, Monitor, Moon, Plus, Search, ShoppingBag, Sun, X };
+const icons = { ChevronLeft, ChevronRight, Clock, Globe2, Mail, MapPin, Menu, Minus, Monitor, Moon, Phone, Plus, Rotate3d, Search, ShoppingBag, Sun, X };
 
 export function renderIcons() {
   createIcons({ icons, attrs: { width: 20, height: 20, 'stroke-width': 1.75, 'aria-hidden': 'true' } });
