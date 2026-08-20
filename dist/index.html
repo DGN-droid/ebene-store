@@ -1,5 +1,67 @@
 <!doctype html>
-<html lang="fr" data-theme="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Ébène — Mode contemporaine</title>  <script type="module" crossorigin src="/assets/main-C-6tLXYi.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/main-B4OlVzHt.css">
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ébène — Mode contemporaine</title>
+  <style>
+    main { min-height: 0; }
+    .hero--product-coverflow { min-height: calc(100vh - 5.25rem); padding: 4rem 1rem; background: transparent; }
+    .hero-video { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; margin: 0; padding: 0; }
+    .hero-product-scrim { position: absolute; inset: 0; z-index: 1; background: rgb(20 12 8 / 48%); }
+    .hero-product-coverflow { position: relative; z-index: 1; display: grid; justify-items: center; width: min(1040px, 100%); margin: auto; }
+    #header-slot { position: relative; z-index: 20; }
+    main { position: relative; z-index: 1; }
+    .hero-product-track { position: relative; width: min(940px, 100%); height: 400px; }
+    .hero-product-card { position: absolute; top: 0; left: 50%; width: min(260px, 29vw); overflow: hidden; border-radius: var(--radius); background: var(--surface); color: var(--text); box-shadow: 0 22px 45px rgb(0 0 0 / 28%); opacity: 0; visibility: hidden; transform: translateX(-50%) scale(.72); filter: blur(6px); transition: transform .9s ease-in-out, filter .9s ease-in-out, opacity .9s ease-in-out, visibility 0s linear .9s; }
+    .hero-product-card.is-active, .hero-product-card.is-previous, .hero-product-card.is-next { visibility: visible; transition-delay: 0s; }
+    .hero-product-card.is-active { z-index: 3; opacity: 1; filter: blur(0); transform: translateX(-50%) scale(1); }
+    .hero-product-card.is-previous, .hero-product-card.is-next { z-index: 1; opacity: .6; filter: blur(5px); }
+    .hero-product-card.is-previous { transform: translateX(calc(-50% - 270px)) scale(.85); }
+    .hero-product-card.is-next { transform: translateX(calc(-50% + 270px)) scale(.85); }
+    .hero-product-card__image { position: relative; height: 270px; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; background: linear-gradient(145deg, #a0846b, #3b2a1e); }
+    .hero-product-card__image::after { content: "ÉBÈNE"; position: absolute; inset: 0; display: grid; place-items: center; color: rgb(255 255 255 / 72%); font-family: var(--font-display); font-size: 1rem; }
+    .hero-product-card__image img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
+    .hero-product-card__image img.is-missing { display: none; }
+    .hero-product-card__body { min-height: 124px; padding: 1rem 1.1rem 1.15rem; }
+    .hero-product-card__category { margin: 0 0 .45rem; color: var(--muted); font-size: .67rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    .hero-product-card h2 { margin: 0; font-size: 1.35rem; }
+    .hero-product-card__meta { margin: .5rem 0 0; font-size: .82rem; }
+    .hero-collection-action { padding-top: 40px; text-align: center; }
+    .hero-collection-action .button--accent { background: #a67c52; border-color: #a67c52; color: #1a1410; border-radius: 999px; padding-inline: 1.5rem; }
+
+    @media (max-width: 767px) {
+      .hero--product-coverflow { min-height: calc(100vh - 5.25rem); padding: 5rem 0 3rem; }
+      .hero-product-coverflow, .hero-product-track { width: 100%; }
+      .hero-product-track { display: flex; height: auto; gap: 1rem; overflow-x: auto; padding: 0 1.5rem .75rem; scroll-snap-type: x mandatory; scrollbar-width: none; }
+      .hero-product-track::-webkit-scrollbar { display: none; }
+      .hero-product-card, .hero-product-card.is-active, .hero-product-card.is-previous, .hero-product-card.is-next { position: relative; left: auto; flex: 0 0 calc(100% - 3rem); visibility: visible; opacity: 1; filter: none; transform: none; scroll-snap-align: center; transition: none; }
+      .hero-product-card__image { height: min(92vw, 380px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-product-card { transition-duration: .01ms; }
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/accueil-C1itX5Yg.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/main-BBcmPc3Z.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-Dtk-YPoV.css">
 </head>
-<body class="is-loading"><div id="header-slot"></div><main><section class="hero"><video autoplay loop muted playsinline class="hero-video" data-lazy-video><source src="/assets/celineboutique3D-CWE5sE8X.mp4" type="video/mp4"></video><div class="hero-content"><h1 data-i18n="hero_title">La matière prend vie</h1><p data-i18n="hero_text">La collection Ébène, pensée pour durer.</p><a class="button button--accent" data-i18n="discover" href="boutique.html">Découvrir la collection</a></div></section><section class="section container"><div class="section-head"><h2 data-i18n="featured">Sélection du moment</h2><div class="carousel-controls" data-carousel-controls="#featured-carousel"><button class="icon-button" data-scroll="-1" aria-label="Précédent"><i data-lucide="chevron-left"></i></button><button class="icon-button" data-scroll="1" aria-label="Suivant"><i data-lucide="chevron-right"></i></button></div></div><div id="featured-carousel" class="carousel" data-products></div></section></main><div id="footer-slot"></div></body></html>
+<body class="is-loading page-home" data-page="home">
+  <div id="header-slot"></div>
+  <main>
+    <section class="hero hero--product-coverflow">
+      <video autoplay muted playsinline preload="auto" class="hero-video" data-lazy-video>
+        <source type="video/mp4">
+      </video>
+      <div class="hero-product-scrim" aria-hidden="true"></div>
+      <div class="hero-product-coverflow" data-hero-product-coverflow>
+        <div class="hero-product-track" data-hero-product-track aria-label="Produits à découvrir"></div>
+        <div class="hero-collection-action">
+          <a class="button button--accent" data-i18n="seeMore" href="boutique.html">Voir plus</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
