@@ -1,11 +1,26 @@
 export function initSearch() {
   const input = document.querySelector('[data-product-search]');
-  if (!input) return;
+  const originButtons = [...document.querySelectorAll('[data-origin-filter]')];
+  const originGroups = [...document.querySelectorAll('[data-origin-group]')];
+  if (!input && !originButtons.length) return;
 
-  input.addEventListener('input', () => {
-    const term = input.value.trim().toLocaleLowerCase();
+  const filterProducts = () => {
+    const term = input?.value.trim().toLocaleLowerCase() || '';
+    const activeOrigin = document.querySelector('[data-origin-filter].is-active')?.dataset.originFilter || 'all';
     document.querySelectorAll('[data-product-card]').forEach((card) => {
-      card.hidden = Boolean(term) && !card.textContent.toLocaleLowerCase().includes(term);
+      const matchesText = !term || card.textContent.toLocaleLowerCase().includes(term);
+      const matchesOrigin = activeOrigin === 'all' || card.dataset.origin === activeOrigin;
+      card.hidden = !(matchesText && matchesOrigin);
     });
-  });
+    originGroups.forEach((group) => {
+      const origin = group.dataset.originGroup;
+      group.hidden = activeOrigin !== 'all' && origin !== activeOrigin;
+    });
+  };
+
+  input?.addEventListener('input', filterProducts);
+  originButtons.forEach((button) => button.addEventListener('click', () => {
+    originButtons.forEach((item) => item.classList.toggle('is-active', item === button));
+    filterProducts();
+  }));
 }

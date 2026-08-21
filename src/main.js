@@ -52,22 +52,4 @@ function initThemeMenu() {
   refresh();
 }
 
-function initOriginFilters() {
-  const buttons = [...document.querySelectorAll('[data-origin-filter]')];
-  if (!buttons.length) return;
-
-  buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const choice = button.dataset.originFilter;
-      buttons.forEach((item) => item.classList.toggle('is-active', item === button));
-      document.querySelectorAll('.origin-group').forEach((group) => {
-        const isOccidental = Boolean(group.querySelector('[data-products-occidental]'));
-        const isAfricain = Boolean(group.querySelector('[data-products-africain]'));
-        if (choice === 'all') group.hidden = false;
-        else if (choice === 'occidental') group.hidden = !isOccidental;
-        else if (choice === 'africain') group.hidden = !isAfricain;
-      });
-    });
-  });
-}
-document.addEventListener('DOMContentLoaded', async () => { initTheme(); try { await loadPartial('#header-slot', '/partials/header.html'); initHeaderInteractions(); initThemeMenu(); const language = localStorage.getItem('ebene-language') || 'fr'; await setLanguage(language); document.querySelector('[data-language]').value = language; document.querySelector('[data-language]').addEventListener('change', (event) => setLanguage(event.target.value)); document.addEventListener('cartchange', () => { renderCart(); updateCartCount(); }); initSearch(); initOriginFilters(); initCarousels(); initVideoObserver(); renderIcons(); updateCartCount(); await renderProducts(); await renderProductPage(); await renderCart(); } finally { document.body.classList.remove('is-loading'); document.body.classList.add('is-ready'); } });
+document.addEventListener('DOMContentLoaded', async () => { initTheme(); try { await loadPartial('#header-slot', '/partials/header.html'); initHeaderInteractions(); initThemeMenu(); const language = localStorage.getItem('ebene-language') || 'fr'; await setLanguage(language); document.querySelector('[data-language]').value = language; document.querySelector('[data-language]').addEventListener('change', (event) => setLanguage(event.target.value)); document.addEventListener('cartchange', () => { renderCart(); updateCartCount(); }); initSearch(); initCarousels(); initVideoObserver(); renderIcons(); updateCartCount(); await renderProducts(); await renderProductPage(); await renderCart(); } finally { document.body.classList.remove('is-loading'); document.body.classList.add('is-ready'); } });
