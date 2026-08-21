@@ -33,9 +33,10 @@
     @media (max-width: 767px) {
       .hero--product-coverflow { min-height: calc(100vh - 5.25rem); padding: 5rem 0 3rem; }
       .hero-product-coverflow, .hero-product-track { width: 100%; }
-      .hero-product-track { display: flex; height: auto; gap: 1rem; overflow-x: auto; padding: 0 1.5rem .75rem; scroll-snap-type: x mandatory; scrollbar-width: none; }
-      .hero-product-track::-webkit-scrollbar { display: none; }
-      .hero-product-card, .hero-product-card.is-active, .hero-product-card.is-previous, .hero-product-card.is-next { position: relative; left: auto; flex: 0 0 calc(100% - 3rem); visibility: visible; opacity: 1; filter: none; transform: none; scroll-snap-align: center; transition: none; }
+      .hero-product-track { height: 340px; }
+      .hero-product-card { width: min(220px, 68vw); }
+      .hero-product-card.is-previous { transform: translateX(calc(-50% - 190px)) scale(.8); }
+      .hero-product-card.is-next { transform: translateX(calc(-50% + 190px)) scale(.8); }
       .hero-product-card__image { height: min(92vw, 380px); }
     }
 
@@ -43,9 +44,9 @@
       .hero-product-card { transition-duration: .01ms; }
     }
   </style>
-  <script type="module" crossorigin src="/assets/accueil-CdBTAPM7.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/main-Bf5ME1lX.js">
-  <link rel="stylesheet" crossorigin href="/assets/main-DWeJ1Tm_.css">
+  <script type="module" crossorigin src="/assets/accueil-C0UY4X5c.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/main-BPSzXzct.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-DIbZipAT.css">
 </head>
 <body class="is-loading page-home" data-page="home">
   <div id="header-slot"></div>
