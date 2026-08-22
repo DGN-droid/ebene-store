@@ -15,7 +15,8 @@
     .hero-product-coverflow { position: relative; z-index: 1; display: grid; justify-items: center; width: min(1040px, 100%); margin: auto; }
     #header-slot { position: relative; z-index: 20; }
     main { position: relative; z-index: 1; }
-    .hero-product-track { position: relative; width: min(940px, 100%); height: 400px; }
+    .hero-product-track { position: relative; width: min(940px, 100%); height: 400px; cursor: grab; touch-action: pan-y; }
+    .hero-product-track.is-dragging { cursor: grabbing; }
     .hero-product-card { position: absolute; top: 0; left: 50%; width: min(260px, 29vw); overflow: hidden; border-radius: var(--radius); background: var(--surface); color: var(--text); box-shadow: 0 22px 45px rgb(0 0 0 / 28%); opacity: 0; visibility: hidden; transform: translateX(-50%) scale(.72); filter: blur(6px); transition: transform .9s ease-in-out, filter .9s ease-in-out, opacity .9s ease-in-out, visibility 0s linear .9s; }
     .hero-product-card.is-active, .hero-product-card.is-previous, .hero-product-card.is-next { visibility: visible; transition-delay: 0s; }
     .hero-product-card.is-active { z-index: 3; opacity: 1; filter: blur(0); transform: translateX(-50%) scale(1); }
@@ -50,6 +51,12 @@
   <script type="module" src="src/main.js"></script>
 </head>
 <body class="is-loading page-home" data-page="home">
+  <div class="intro-overlay" data-intro-overlay>
+    <video class="intro-video" autoplay muted playsinline data-intro-video>
+      <source src="assets/videos/fais_mois_une_belle_animation.mp4" type="video/mp4">
+    </video>
+    <button type="button" class="intro-skip" data-intro-skip>Passer l'intro</button>
+  </div>
   <div id="header-slot"></div>
   <main>
     <section class="hero hero--product-coverflow">
@@ -66,6 +73,27 @@
     </section>
   </main>
   <script type="module">
+    const introOverlay = document.querySelector('[data-intro-overlay]');
+    const introVideo = document.querySelector('[data-intro-video]');
+    const introSkip = document.querySelector('[data-intro-skip]');
+    const introSeen = sessionStorage.getItem('ebene-intro-seen');
+
+    function closeIntro() {
+      if (!introOverlay || introOverlay.classList.contains('is-hidden')) return;
+      sessionStorage.setItem('ebene-intro-seen', 'true');
+      document.body.classList.remove('intro-active');
+      introOverlay.classList.add('is-hidden');
+      window.setTimeout(() => introOverlay.remove(), 600);
+    }
+
+    if (introSeen) {
+      introOverlay?.remove();
+    } else {
+      document.body.classList.add('intro-active');
+      introVideo?.addEventListener('ended', closeIntro, { once: true });
+      introSkip?.addEventListener('click', closeIntro, { once: true });
+    }
+
     const coverflow = document.querySelector('[data-hero-product-coverflow]');
     const track = coverflow?.querySelector('[data-hero-product-track]');
     const heroVideo = document.querySelector('.hero-video');
@@ -82,6 +110,34 @@
     let cards = [];
     let activeIndex = 0;
     let autoplayTimer;
+    let swipeStartX = 0;
+    let isDragging = false;
+
+      function handlePointerDown(event) {
+        if (!event.isPrimary) return;
+        stopAutoplay();
+        swipeStartX = event.clientX;
+        isDragging = true;
+        track.classList.add('is-dragging');
+        track.setPointerCapture?.(event.pointerId);
+      }
+
+      function handlePointerMove(event) {
+        if (!isDragging || !event.isPrimary) return;
+        const delta = event.clientX - swipeStartX;
+        if (Math.abs(delta) < 50) return;
+        activeIndex = (activeIndex + (delta < 0 ? 1 : -1) + cards.length) % cards.length;
+        updateCoverflow();
+        swipeStartX = event.clientX;
+      }
+
+      function handlePointerEnd(event) {
+        if (!isDragging || (event && !event.isPrimary)) return;
+        isDragging = false;
+        track.classList.remove('is-dragging');
+        if (event) track.releasePointerCapture?.(event.pointerId);
+        scheduleAutoplay(2500);
+      }
 
     function buildProductCard(product) {
       const card = document.createElement('article');
@@ -125,6 +181,7 @@
         if (index === nextIndex) card.classList.add('is-next');
         card.setAttribute('aria-hidden', index === activeIndex ? 'false' : 'true');
       });
+      if (mobileQuery.matches) cards[activeIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
     function stopAutoplay() { window.clearTimeout(autoplayTimer); }
@@ -149,6 +206,10 @@
       selected.forEach((product) => track.append(buildProductCard(product)));
       cards = [...track.children];
       if (!cards.length) return;
+      track.addEventListener('pointerdown', handlePointerDown);
+      track.addEventListener('pointermove', handlePointerMove);
+      track.addEventListener('pointerup', handlePointerEnd);
+      track.addEventListener('pointercancel', handlePointerEnd);
       const handleMediaChange = () => { updateCoverflow(); scheduleAutoplay(2500); };
       mobileQuery.addEventListener('change', handleMediaChange);
       updateCoverflow();

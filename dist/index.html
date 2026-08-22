@@ -12,7 +12,8 @@
     .hero-product-coverflow { position: relative; z-index: 1; display: grid; justify-items: center; width: min(1040px, 100%); margin: auto; }
     #header-slot { position: relative; z-index: 20; }
     main { position: relative; z-index: 1; }
-    .hero-product-track { position: relative; width: min(940px, 100%); height: 400px; }
+    .hero-product-track { position: relative; width: min(940px, 100%); height: 400px; cursor: grab; touch-action: pan-y; }
+    .hero-product-track.is-dragging { cursor: grabbing; }
     .hero-product-card { position: absolute; top: 0; left: 50%; width: min(260px, 29vw); overflow: hidden; border-radius: var(--radius); background: var(--surface); color: var(--text); box-shadow: 0 22px 45px rgb(0 0 0 / 28%); opacity: 0; visibility: hidden; transform: translateX(-50%) scale(.72); filter: blur(6px); transition: transform .9s ease-in-out, filter .9s ease-in-out, opacity .9s ease-in-out, visibility 0s linear .9s; }
     .hero-product-card.is-active, .hero-product-card.is-previous, .hero-product-card.is-next { visibility: visible; transition-delay: 0s; }
     .hero-product-card.is-active { z-index: 3; opacity: 1; filter: blur(0); transform: translateX(-50%) scale(1); }
@@ -44,11 +45,17 @@
       .hero-product-card { transition-duration: .01ms; }
     }
   </style>
-  <script type="module" crossorigin src="/assets/accueil-C0UY4X5c.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/main-BPSzXzct.js">
-  <link rel="stylesheet" crossorigin href="/assets/main-DIbZipAT.css">
+  <script type="module" crossorigin src="/assets/accueil-B5xfKW5u.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/main-Bya1YFVQ.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-BLjnljxu.css">
 </head>
 <body class="is-loading page-home" data-page="home">
+  <div class="intro-overlay" data-intro-overlay>
+    <video class="intro-video" autoplay muted playsinline data-intro-video>
+      <source src="assets/videos/fais_mois_une_belle_animation.mp4" type="video/mp4">
+    </video>
+    <button type="button" class="intro-skip" data-intro-skip>Passer l'intro</button>
+  </div>
   <div id="header-slot"></div>
   <main>
     <section class="hero hero--product-coverflow">
