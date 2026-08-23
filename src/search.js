@@ -1,7 +1,7 @@
 export function initSearch() {
   const input = document.querySelector('[data-product-search]');
   const originButtons = [...document.querySelectorAll('[data-origin-filter]')];
-  const originGroups = [...document.querySelectorAll('[data-origin-group]')];
+  const originGroups = [...document.querySelectorAll('.origin-group')];
   if (!input && !originButtons.length) return;
 
   const filterProducts = () => {
@@ -13,8 +13,15 @@ export function initSearch() {
       card.hidden = !(matchesText && matchesOrigin);
     });
     originGroups.forEach((group) => {
-      const origin = group.dataset.originGroup;
-      group.hidden = activeOrigin !== 'all' && origin !== activeOrigin;
+      const isOccidental = group.querySelector('[data-products-occidental]');
+      const isAfricain = group.querySelector('[data-products-africain]');
+      if (activeOrigin === 'all') {
+        group.hidden = false;
+      } else if (activeOrigin === 'occidental') {
+        group.hidden = !isOccidental;
+      } else if (activeOrigin === 'africain') {
+        group.hidden = !isAfricain;
+      }
     });
   };
 

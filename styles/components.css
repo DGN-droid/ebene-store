@@ -24,6 +24,26 @@
 .intro-video { width: 100vw; height: 100vh; object-fit: cover; }
 .intro-skip { position: absolute; bottom: 2rem; right: 2rem; background: rgb(255 255 255 / .15); color: #fff; border: 1px solid rgb(255 255 255 / .4); border-radius: 999px; padding: .6rem 1.2rem; backdrop-filter: blur(8px); }
 
+.catalog-bg-video,
+.catalog-bg-scrim {
+	position: fixed;
+	inset: 0;
+	width: 100vw;
+	height: 100vh;
+	pointer-events: none;
+}
+.catalog-bg-video {
+	object-fit: cover;
+	z-index: 0;
+}
+.catalog-bg-scrim {
+	z-index: 0;
+	background: rgb(250 250 248 / .82);
+}
+[data-theme="dark"] .catalog-bg-scrim {
+	background: rgb(26 20 16 / .82);
+}
+
 @media (max-width: 480px) {
 	.header-actions { gap: .1rem; }
 	.header-icon,
@@ -238,3 +258,7 @@
 @media (max-width: 767px) { .contact-page { padding-top: 2.5rem; } .contact-form-panel, .contact-details { padding: 1.25rem; } }
 
 .origin-filter { display: inline-flex; align-items: center; gap: .4rem; }.origin-filter svg { width: 16px; height: 16px; stroke-width: 1.75; }.origin-group h3 { display: inline-flex; align-items: center; gap: .4rem; }.origin-group h3 svg { width: 16px; height: 16px; stroke-width: 1.75; }
+
+.origin-group[hidden] {
+	display: none;
+}

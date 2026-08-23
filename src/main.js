@@ -6,12 +6,13 @@ import { initCarousels } from './carousel.js';
 import { initHeaderInteractions } from './layout.js';
 import { loadPartial } from './partials.js';
 import { renderIcons } from './icons.js';
+import { initCatalogBackgroundVideo } from './catalog-bg-video.js';
 
 const productsUrl = new URL('./data/products.json', import.meta.url);
 const loadProducts = () => fetch(productsUrl).then((response) => response.json());
 const currency = (value) => new Intl.NumberFormat(document.documentElement.lang || 'fr', { style: 'currency', currency: 'EUR' }).format(value);
 const card = (product) => `<article class="product-card" data-product-card data-origin="${product.origin}"><a class="product-card__image" href="produit.html?id=${product.id}"><img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async" width="480" height="600"></a><div class="product-card__body"><p>${product.category}</p><h3>${product.name}</h3><p class="price">${currency(product.price)}</p><a class="button" href="produit.html?id=${product.id}">Voir le produit</a></div></article>`;
-function initVideoObserver() { const videos = document.querySelectorAll('video[data-lazy-video]'); if (!videos.length) return; const observer = new IntersectionObserver((entries) => entries.forEach(({ target, isIntersecting }) => isIntersecting ? target.play().catch(() => {}) : target.pause()), { threshold: .15 }); videos.forEach((video) => { video.pause(); observer.observe(video); }); }
+function initVideoObserver() { const videos = document.querySelectorAll('video[data-lazy-video]:not(.catalog-bg-video)'); if (!videos.length) return; const observer = new IntersectionObserver((entries) => entries.forEach(({ target, isIntersecting }) => isIntersecting ? target.play().catch(() => {}) : target.pause()), { threshold: .15 }); videos.forEach((video) => { video.pause(); observer.observe(video); }); }
 async function renderProducts() {
   const target = document.querySelector('[data-products]');
   const occidentalTarget = document.querySelector('[data-products-occidental]');
@@ -46,4 +47,4 @@ function initThemeMenu() {
   refresh();
 }
 
-document.addEventListener('DOMContentLoaded', async () => { initTheme(); try { await loadPartial('#header-slot', '/partials/header.html'); initHeaderInteractions(); initThemeMenu(); const language = localStorage.getItem('ebene-language') || 'fr'; await setLanguage(language); document.querySelector('[data-language]').value = language; document.querySelector('[data-language]').addEventListener('change', (event) => setLanguage(event.target.value)); document.addEventListener('cartchange', () => { renderCart(); updateCartCount(); }); initSearch(); initCarousels(); initVideoObserver(); renderIcons(); updateCartCount(); await renderProducts(); await renderProductPage(); await renderCart(); } finally { document.body.classList.remove('is-loading'); document.body.classList.add('is-ready'); } });
+document.addEventListener('DOMContentLoaded', async () => { initTheme(); try { await loadPartial('#header-slot', '/partials/header.html'); initHeaderInteractions(); initThemeMenu(); const language = localStorage.getItem('ebene-language') || 'fr'; await setLanguage(language); document.querySelector('[data-language]').value = language; document.querySelector('[data-language]').addEventListener('change', (event) => setLanguage(event.target.value)); document.addEventListener('cartchange', () => { renderCart(); updateCartCount(); }); initSearch(); initCarousels(); initCatalogBackgroundVideo(); initVideoObserver(); renderIcons(); updateCartCount(); await renderProducts(); await renderProductPage(); await renderCart(); } finally { document.body.classList.remove('is-loading'); document.body.classList.add('is-ready'); } });
