@@ -16,18 +16,12 @@ async function renderProducts() {
   const target = document.querySelector('[data-products]');
   const occidentalTarget = document.querySelector('[data-products-occidental]');
   const africainTarget = document.querySelector('[data-products-africain]');
-  const vestesTarget = document.querySelector('[data-products-vestes]');
-  const robesTarget = document.querySelector('[data-products-robes]');
-  const accessoiresTarget = document.querySelector('[data-products-accessoires]');
-  if (!target && !occidentalTarget && !africainTarget && !vestesTarget && !robesTarget && !accessoiresTarget) return;
+  if (!target && !occidentalTarget && !africainTarget) return;
   const products = await loadProducts();
   const renderGroup = (items, container) => { if (container) container.innerHTML = items.map(card).join(''); };
   renderGroup(products, target);
   renderGroup(products.filter((product) => product.origin === 'occidental'), occidentalTarget);
   renderGroup(products.filter((product) => product.origin === 'africain'), africainTarget);
-  renderGroup(products.filter((product) => product.category === 'Vestes'), vestesTarget);
-  renderGroup(products.filter((product) => product.category === 'Robes'), robesTarget);
-  renderGroup(products.filter((product) => product.category === 'Accessoires'), accessoiresTarget);
 }
 async function renderProductPage() { const target = document.querySelector('[data-product-detail]'); if (!target) return; const products = await loadProducts(); const id = new URLSearchParams(location.search).get('id') || '1'; const product = products.find((item) => item.id === id) || products[0]; const productBackgroundVideos = { '1': 'assets/videos/veste.mp4', '2': 'assets/videos/robe3D.mp4', '3': 'assets/videos/sac.mp4', '4': 'assets/videos/pareil_ici (1).mp4', '5': 'assets/videos/pareil_ici.mp4', '6': 'assets/videos/fais_pareil_pour_cette_robe_st.mp4' }; const videoSrc = productBackgroundVideos[product.id]; const productBackdrop = videoSrc ? `<video class="product-detail-background" data-lazy-video autoplay loop muted playsinline preload="auto" aria-hidden="true"><source src="${videoSrc}" type="video/mp4"></video><div class="product-detail-video-scrim" aria-hidden="true"></div>` : '';
   const detailItems = product.details.map((detail) => `<li>${detail}</li>`).join('');

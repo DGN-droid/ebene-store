@@ -93,3 +93,14 @@ body {
   filter: none;
   perspective: none;
 }
+
+.mobile-menu,
+.mobile-menu nav a,
+.mobile-menu .logo,
+.mobile-menu .header-icon {
+  color: var(--text) !important;
+}
+
+.mobile-menu nav a.is-active {
+  color: var(--accent) !important;
+}
