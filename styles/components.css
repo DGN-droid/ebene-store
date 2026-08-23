@@ -24,6 +24,18 @@
 .intro-video { width: 100vw; height: 100vh; object-fit: cover; }
 .intro-skip { position: absolute; bottom: 2rem; right: 2rem; background: rgb(255 255 255 / .15); color: #fff; border: 1px solid rgb(255 255 255 / .4); border-radius: 999px; padding: .6rem 1.2rem; backdrop-filter: blur(8px); }
 
+@media (max-width: 480px) {
+	.header-actions { gap: .1rem; }
+	.header-icon,
+	.language-select {
+		min-width: 2rem;
+		width: 2rem;
+		height: 2rem;
+		padding: 0 .2rem;
+	}
+	.language-select { min-width: 2.4rem; width: 2.4rem; font-size: .65rem; }
+}
+
 .product-layout {
 	min-height: 100vh;
 }

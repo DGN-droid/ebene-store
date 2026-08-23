@@ -37,8 +37,9 @@
     @media (max-width: 767px) {
       .hero--product-coverflow { min-height: calc(100vh - 5.25rem); padding: 5rem 0 3rem; }
       .hero-product-coverflow, .hero-product-track { width: 100%; }
-      .hero-product-track { height: 340px; }
-      .hero-product-card { left: 50%; width: min(220px, 68vw); transform: translateX(-50%) scale(1); }
+      .hero-product-track { height: 340px; overflow: hidden; }
+      .hero-product-card, .hero-product-card.is-active, .hero-product-card.is-previous, .hero-product-card.is-next { position: absolute; left: 50%; width: min(220px, 68vw); }
+      .hero-product-card.is-active { transform: translateX(-50%) scale(1); }
       .hero-product-card.is-previous { transform: translateX(calc(-50% - 190px)) scale(.8); }
       .hero-product-card.is-next { transform: translateX(calc(-50% + 190px)) scale(.8); }
       .hero-product-card__image { height: min(92vw, 380px); }
@@ -181,7 +182,6 @@
         if (index === nextIndex) card.classList.add('is-next');
         card.setAttribute('aria-hidden', index === activeIndex ? 'false' : 'true');
       });
-      if (mobileQuery.matches) cards[activeIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
     function stopAutoplay() { window.clearTimeout(autoplayTimer); }
